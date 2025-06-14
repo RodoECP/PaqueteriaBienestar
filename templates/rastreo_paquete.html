@@ -1,0 +1,597 @@
+{% extends 'base.html' %}
+
+{% block title %}Rastrear Paquete{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 id="principal">Rastrear Paquete</h1>
+    <form method="POST" action="{% url 'rastreo_paquete' %}" class="tracking-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <input 
+                type="text" 
+                id="codigo" 
+                name="codigo" 
+                placeholder="Ingrese el número de rastreo" 
+                required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn">Buscar Paquete</button>
+        </div>
+    </form>
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if paquete %}
+        <h2>Información del Paquete</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Número de Rastreo</th>
+                    <td>{{ paquete.codigo }}</td>
+                </tr>
+                <tr>
+                    <th>Remitente</th>
+                    <td>{{ paquete.remitente }}</td>
+                </tr>
+                <tr>
+                    <th>Receptor</th>
+                    <td>{{ paquete.receptor }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Origen</th>
+                    <td>{{ estado_origen.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Destino</th>
+                    <td>{{ estado_destino.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado Actual</th>
+                    <td>{{ paquete.estado_actual.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado del Paquete</th>
+                    <td>{{ paquete.estado_paquete }}</td>
+                </tr>
+                <tr>
+                    <th>Peso</th>
+                    <td>{{ paquete.peso }} kg</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ paquete.descripcion }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Ruta del Paquete</h3>
+        <div class="timeline">
+            {% for ruta in rutas %}
+                <div class="timeline-item {% if ruta.activo %}current{% elif ruta.fecha_actualizacion %}completed{% endif %}">
+                    <div class="timeline-content">
+                        <h4>{{ ruta.frase.frase }}</h4>
+                        <p>
+                            De <strong>{{ ruta.estado_origen.nombre }}</strong> a 
+                            <strong>{{ ruta.estado_destino.nombre }}</strong><br>
+                            {% if ruta.fecha_actualizacion %}
+                                <small>Actualizado: {{ ruta.fecha_actualizacion|date:"d de F, Y H:i" }}</small>
+                            {% else %}
+                                <small>Pendiente</small>
+                            {% endif %}
+                        </p>
+                        {% if ruta.activo %}
+                            <span class="badge badge-warning">En Curso</span>
+                        {% elif ruta.fecha_actualizacion %}
+                            <span class="badge badge-success">Completado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if paquete.estado_paquete == "Entregado" %}
+            <div class="alert alert-success">
+                <strong>¡Paquete Entregado!</strong> El paquete ha sido entregado el {{ paquete.fecha_entrega|date:"d de F, Y H:i" }}.
+            </div>
+            <form method="POST" action="{% url 'descargar_pdf' paquete.codigo %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-download">Descargar Comprobante</button>
+            </form>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Reset de márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Tipografía */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F6F6F6; /* Fondo claro */
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Wrapper para Flexbox */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Contenedor General */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Enlace para saltar al contenido principal */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #5A1631;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Estilos del Header */
+header {
+    background-color: #5A1631; /* Fondo guinda */
+    color: #FFFFFF;
+    padding: 10px 0;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+
+/* Ajustes para el logo */
+.logo-img {
+    height: 30px; /* Tamaño reducido */
+    width: auto;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 20px; /* Tamaño de fuente reducido */
+    font-weight: bold;
+}
+
+/* Navegación */
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFD700; /* Dorado para resaltar */
+}
+
+/* Estilos del Contenido Principal */
+main {
+    flex: 1;
+    padding: 20px 0;
+}
+
+main .container {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #5A1631;
+    margin-bottom: 15px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5A1631;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #7A2748;
+}
+
+/* Botón específico para descargas */
+.btn-download {
+    background-color: #28a745; /* Verde */
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 20px auto 0;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-download:hover {
+    background-color: #218838; /* Verde oscuro */
+}
+
+/* Formularios */
+.form-horizontal {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group button {
+    padding: 10px 20px;
+    background-color: #5A1631;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-group button:hover {
+    background-color: #7A2748;
+}
+
+/* Alertas */
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Estilos de la Tabla */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #007bff; /* Azul para encabezados */
+    color: #ffffff; /* Texto blanco */
+    font-weight: bold;
+}
+
+.table tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover td {
+    background-color: #f1f1f1;
+}
+
+/* Línea de tiempo */
+.timeline {
+    position: relative;
+    margin: 50px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #007bff; /* Azul */
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border: 4px solid #007bff; /* Azul */
+    border-radius: 50%;
+    z-index: 1;
+    transform: translateX(50%);
+}
+
+.timeline-item.completed::before {
+    background-color: #28a745; /* Verde */
+    border-color: #28a745;
+}
+
+.timeline-item.current::before {
+    background-color: #ffc107; /* Amarillo */
+    border-color: #ffc107;
+}
+
+.timeline-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #333333;
+    margin-left: 30px;
+}
+
+.timeline-content h4 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.timeline-content p {
+    margin: 10px 0;
+}
+
+.timeline-content .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Footer */
+footer {
+    background-color: #5A1631; /* Fondo guinda similar al header */
+    color: #FFFFFF;
+    padding: 20px 0;
+}
+
+footer .footer-container {
+    display: flex;
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-info {
+    margin-bottom: 15px; /* Espaciado inferior */
+}
+
+.footer-info p {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centrar enlaces */
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.footer-links li {
+    margin: 0 10px; /* Espaciado entre enlaces */
+}
+
+.footer-links li a {
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: color 0.3s;
+}
+
+.footer-links li a:hover {
+    color: #FFD700; /* Dorado al pasar el cursor */
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar iconos */
+    flex-wrap: wrap;
+}
+
+.footer-social a {
+    text-decoration: none;
+    color: #FFFFFF;
+    margin: 0 10px; /* Espaciado entre iconos */
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
+    color: #FFD700; /* Dorado al pasar el cursor */
+}
+
+.footer-social i {
+    margin-right: 5px;
+}
+
+/* Mensajes de Error */
+.error-message {
+    color: #FF0000; /* Rojo para destacar errores */
+    margin-top: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.error-message i {
+    margin-right: 5px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    footer .footer-container {
+        align-items: center; /* Asegurar centrado en móviles */
+    }
+
+    footer .footer-content {
+        flex-direction: column; /* Alinear en columna */
+        align-items: center; /* Centrar elementos */
+        text-align: center; /* Centrar texto */
+    }
+
+    .footer-social {
+        justify-content: center; /* Centrar social icons */
+        margin-top: 15px;
+    }
+
+    .logo-img {
+        height: 25px; /* Tamaño aún más pequeño en móviles */
+    }
+
+    .logo-text {
+        font-size: 18px; /* Tamaño de fuente reducido en móviles */
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding: 20px;
+        margin-left: 0;
+    }
+
+    .timeline-content {
+        margin-left: 0;
+    }
+
+    .timeline::after {
+        left: 20px;
+    }
+
+    .timeline-item::before {
+        left: 20px;
+        transform: translateX(0);
+    }
+}
+</style>
+{% endblock %}

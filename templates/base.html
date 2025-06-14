@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Paquetería del Bienestar{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH2N1o4I+gO3Zt45EHEuK4P+N9b9Uly+B6mYqwD/T1SSkkK5fX/1ymKw1eVXjYQ1Vn0x1ozA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Cabecera -->
+        <header>
+            <div class="container">
+                <a href="#principal" class="skip-link">Ir al contenido principal</a>
+                <div class="logo">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'css/logo.jpg' %}" alt="Logo Paquetería del Bienestar" class="logo-img">
+                        <span class="logo-text">Paquetería del Bienestar</span>
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'rastreo_paquete' %}">Rastrear Paquete</a></li>
+                        <li><a href="{% url 'solicitar_envio' %}">Solicitar Envío</a></li>
+                        <li><a href="{% url 'acerca_de' %}">Acerca de</a></li>
+                                               <li><a href="{% url 'FAQ' %}">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Contenido Principal -->
+        <main>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+
+        <!-- Pie de Página -->
+        <footer>
+            <div class="container footer-container">
+                <div class="footer-info">
+                    <p>© 2024 Paquetería del Bienestar - Todos los derechos reservados.</p>
+                    <ul class="footer-links">
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
