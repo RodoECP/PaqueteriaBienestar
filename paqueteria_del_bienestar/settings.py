@@ -9,7 +9,8 @@ SECRET_KEY = '95gz=npbnhkvqss#bk-db_by#mz+*$xzeai9n$e0ww$i_v2y1%'
 # ¡No ejecutes con debug activado en producción!
 DEBUG = True # Asegúrate de establecer DEBUG en False en producción
 
-ALLOWED_HOSTS = ['paqueteriabienestar.zapto.org', '127.0.0.1', 'localhost']
+# Permite el acceso desde estos hosts,
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 # Definición de aplicaciones
 INSTALLED_APPS = [
