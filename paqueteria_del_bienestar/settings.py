@@ -61,7 +61,7 @@ DATABASES = {
         'NAME': 'paqueteria_mexicana',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb+srv://EquipoPaqueteria:EquipoPaqueteria@cluster0.y4bexfw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'host': 'mongodb+srv://EquipoPaqueteria:<Password>@cluster0.y4bexfw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
             'tls': True,
         }
     }
