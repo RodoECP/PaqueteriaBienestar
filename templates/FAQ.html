@@ -1,0 +1,118 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Preguntas Frecuentes</h1>
+
+    <!-- SECCIÓN 1: CUENTA Y ACCESO -->
+    <h2>Cuenta y Acceso</h2>
+    
+    <details>
+        <summary>¿Cómo creo una cuenta?</summary>
+        <p>Haz clic en <strong>"Iniciar Sesión"</strong> → <strong>"Registrate"</strong>. Completa tus datos (nombre, correo y contraseña).</p>
+    </details>
+    
+    <details>
+        <summary>¿Qué ventajas tiene tener cuenta?</summary>
+        <p>Podrás:</p>
+        <ul>
+            <li>Solicitar envíos rápidamente.</li>
+            <li>Ver el historial de tus paquetes en la página principal.</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>¿Cómo puedo gestionar mi cuenta?</summary>
+        <p>Después de iniciar sesión:</p>
+        <ul>
+            <li>Entrar a <strong>Perfil</strong></li>
+            <li>Para Modificar datos: </li>
+            <ol>
+                <li>Hacer cambios que quieras</li>
+                <li>Dar clic en <strong>Guardar cambios</strong></li>
+            </ol>
+            <li>Para Cerrar cuenta:</li>
+            <ol>
+                <li>Dar clic en <strong>Eliminar mi cuenta permanentemente</strong></li>
+                <li>Confirmar eliminación de tu cuenta</li>
+            </ol>
+        </ul>
+    </details>
+
+    <!-- SECCIÓN 2: SOLICITAR ENVÍO -->
+    <h2>Solicitar Envío</h2>
+    
+    <details>
+        <summary>¿Qué información necesito para solicitar un envío?</summary>
+        <p>Requieres:</p>
+        <ol>
+            <li><strong>Cuenta activa</strong> (obligatorio).</li>
+            <li>Datos de <strong>recolección</strong>: dirección exacta y nombre persona de remitente.</li>
+            <li>Datos de <strong>entrega</strong>: destino completo y nombre del receptor.</li>
+            <li>Detalles del paquete: peso y descripción de contenido.</li>
+        </ol>
+    </details>
+
+    <!-- SECCIÓN 3: RASTREO -->
+    <h2>Rastreo de Paquetes</h2>
+    
+    <details>
+        <summary>¿Cómo rastreo mi paquete?</summary>
+        <p>Ve a la sección <strong>"Rastrear Paquete"</strong> e ingresa el número de rastreo único que recibiste al solicitar el envío.</p>
+        <div class="highlight">
+            <strong>Tip:</strong> Si inicias sesión, todos tus envíos aparecerán automáticamente en la página principal.
+        </div>
+    </details>
+
+    <!-- SECCIÓN 4: COMPROBANTE DE ENTREGA -->
+    <h2>Comprobante de Entrega</h2>
+    
+    <details>
+        <summary>¿Cómo genero mi comprobante de entrega en PDF?</summary>
+        <p>Sigue estos pasos:</p>
+        <ol>
+            <li>Ve a<strong>"Rastrear Paquete"</strong>.</li>
+            <li>Busca el paquete con su código de rastreo</li>
+            <li>Haz clic en el botón <strong>"Descargar Comprobante"</strong>.</li>
+            <li>Descarga el PDF</li>
+        </ol>
+    </details>
+    
+    <details>
+        <summary>¿Qué información incluye el comprobante?</summary>
+        <p>El PDF contiene:</p>
+        <ul>
+            <li>Número de rastreo</li>
+            <li>Fechas de solicitud y entrega.</li>
+            <li>Nombre de Remitente y Receptor</li>
+            <li>Direcciones de recolección y entrega</li>
+            <li>Peso y Descripción del contenido.</li>
+            <li>Historial de Rutas.</li>
+            <li>Nombre del receptor y firma digital.</li>
+        </ul>
+    </details>
+
+    <!-- SECCIÓN 5: PROBLEMAS -->
+    <h2>Problemas y Soluciones</h2>
+    
+    <details>
+        <summary>Mi paquete muestra "Entregado" pero no lo recibí</summary>
+        <p>Acciones inmediatas:</p>
+        <ol>
+            <li>Verifica que la dirección en el comprobante sea correcta.</li>
+            <li>Consulta con vecinos o familiares.</li>
+            <li>Si persiste el problema, contáctanos dentro de las 72 horas posteriores a la entrega registrada.</li>
+        </ol>
+    </details>
+
+    <!-- CONTACTO -->
+    <div class="highlight">
+        <h3>¿No encontraste tu respuesta?</h3>
+        <p>Contáctanos:</p>
+        <ul>
+            <li>Teléfono: <strong>800-123-4567</strong> (24/7)</li>
+            <li>Correo: <strong>soporte@paqueteriadelbienestar.gob.mx</strong></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

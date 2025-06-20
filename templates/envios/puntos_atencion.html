@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puntos de Atención - Paquetería del Bienestar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-[#5A1631] text-white p-6 shadow-md">
+    <h1 class="text-3xl font-bold text-center" style="color: #FFFFFF;">Puntos de Atención</h1>
+  </header>
+
+  <div class="p-6 flex justify-start">
+  <a href="{% url 'index' %}" class="bg-[#5A1631] text-white px-4 py-2 rounded-md shadow hover:bg-[#7b1e40] transition-colors duration-300">
+    ← Regresar / Menú Principal
+  </a>
+</div>
+  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Aguascalientes</h2>
+      <p><strong>Dirección:</strong> Av. Central 101, Col. Centro</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Baja California</h2>
+      <p><strong>Dirección:</strong> Calle Reforma 45, Mexicali</p>
+      <p><strong>Horario:</strong> Lun - Sáb: 8:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Baja California Sur</h2>
+      <p><strong>Dirección:</strong> Blvd. Forjadores 200, La Paz</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Campeche</h2>
+      <p><strong>Dirección:</strong> Calle 59 No. 300, Campeche</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Chiapas</h2>
+      <p><strong>Dirección:</strong> Av. Central Norte 10, Tuxtla</p>
+      <p><strong>Horario:</strong> Lun - Sáb: 8:30am - 4:30pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Chihuahua</h2>
+      <p><strong>Dirección:</strong> Calle Libertad 123, Chihuahua</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:30pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Ciudad de México</h2>
+      <p><strong>Dirección:</strong> Eje Central 250, CDMX</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 7:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Coahuila</h2>
+      <p><strong>Dirección:</strong> Blvd. Venustiano Carranza 88, Saltillo</p>
+      <p><strong>Horario:</strong> Lun - Sáb: 8:00am - 4:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Colima</h2>
+      <p><strong>Dirección:</strong> Av. Constitución 321, Colima</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Durango</h2>
+      <p><strong>Dirección:</strong> Calle 20 de Noviembre 55, Durango</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Estado de México</h2>
+      <p><strong>Dirección:</strong> Av. Lerdo 100, Toluca</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Guanajuato</h2>
+      <p><strong>Dirección:</strong> Callejón del Beso 12, Guanajuato</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:30pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Guerrero</h2>
+      <p><strong>Dirección:</strong> Av. Insurgentes 10, Chilpancingo</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Hidalgo</h2>
+      <p><strong>Dirección:</strong> Calle Morelos 456, Pachuca</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Jalisco</h2>
+      <p><strong>Dirección:</strong> Av. Vallarta 789, Guadalajara</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 7:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Michoacán</h2>
+      <p><strong>Dirección:</strong> Calle Morelos 100, Morelia</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Morelos</h2>
+      <p><strong>Dirección:</strong> Av. Emiliano Zapata 45, Cuernavaca</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Nayarit</h2>
+      <p><strong>Dirección:</strong> Calle Juárez 123, Tepic</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Nuevo León</h2>
+      <p><strong>Dirección:</strong> Av. Constitución 500, Monterrey</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 7:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Oaxaca</h2>
+      <p><strong>Dirección:</strong> Calle Macedonio Alcalá 15, Oaxaca</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Puebla</h2>
+      <p><strong>Dirección:</strong> Av. 11 Sur 200, Puebla</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:30pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Querétaro</h2>
+      <p><strong>Dirección:</strong> Calle 5 de Mayo 120, Querétaro</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Quintana Roo</h2>
+      <p><strong>Dirección:</strong> Av. Tulum 321, Cancún</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">San Luis Potosí</h2>
+      <p><strong>Dirección:</strong> Calle Hidalgo 150, San Luis Potosí</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Sinaloa</h2>
+      <p><strong>Dirección:</strong> Av. Álvaro Obregón 400, Culiacán</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Sonora</h2>
+      <p><strong>Dirección:</strong> Calle Guerrero 78, Hermosillo</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Tabasco</h2>
+      <p><strong>Dirección:</strong> Av. 27 de Febrero 110, Villahermosa</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Tamaulipas</h2>
+      <p><strong>Dirección:</strong> Calle Morelos 75, Ciudad Victoria</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Tlaxcala</h2>
+      <p><strong>Dirección:</strong> Av. Reforma 88, Tlaxcala</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 5:30pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Veracruz</h2>
+      <p><strong>Dirección:</strong> Av. Independencia 250, Veracruz</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Yucatán</h2>
+      <p><strong>Dirección:</strong> Calle 60 123, Mérida</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-md fade-in border-l-4 border-[#5A1631]">
+      <h2 class="text-xl font-bold text-[#5A1631]">Zacatecas</h2>
+      <p><strong>Dirección:</strong> Av. Hidalgo 300, Zacatecas</p>
+      <p><strong>Horario:</strong> Lun - Vie: 9:00am - 6:00pm</p>
+    </div>
+  </main>
+</body>
+</html>
+{% endblock %}

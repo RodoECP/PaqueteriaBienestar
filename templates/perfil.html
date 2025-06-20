@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 mb-4">Mi Perfil</h2>
+    
+    <form method="POST" class="mb-5">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="nombre_usuario">Nombre de usuario</label>
+            <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" 
+                   value="{{ usuario.nombre_usuario }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" class="form-control" id="correo" name="correo" 
+                   value="{{ usuario.correo }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Nueva contraseña (dejar vacío para no cambiar)</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </form>
+
+    <div class="border-top pt-4">
+        <!-- Botón que activa el modal -->
+        <button id="deleteAccountBtn" class="btn btn-danger">
+            Eliminar mi cuenta permanentemente
+        </button>
+        <p class="text-muted mt-2">Esta acción no se puede deshacer. Se eliminarán todos tus datos.</p>
+    </div>
+</div>
+
+<!-- Modal de confirmación (oculto inicialmente con style="display: none") -->
+<div id="confirmDeleteModal" class="custom-modal" style="display: none;">
+    <div class="custom-modal-content">
+        <div class="custom-modal-header">
+            <h3>Confirmar eliminación</h3>
+            <span class="custom-modal-close">&times;</span>
+        </div>
+        <div class="custom-modal-body">
+            <p>¿Estás seguro de que quieres eliminar tu cuenta permanentemente?</p>
+            <p>Todos tus datos personales serán eliminados, pero los paquetes que hayas enviado se mantendrán sin asociación a tu cuenta.</p>
+        </div>
+        <div class="custom-modal-footer">
+            <button id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+            <form method="POST" action="{% url 'eliminar_cuenta' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, eliminar mi cuenta</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById("confirmDeleteModal");
+    const btn = document.getElementById("deleteAccountBtn");
+    const span = document.querySelector(".custom-modal-close");
+    const cancelBtn = document.getElementById("cancelBtn");
+    
+    // Mostrar modal al hacer clic en el botón
+    btn.addEventListener('click', function() {
+        modal.style.display = "block";
+    });
+    
+    // Ocultar modal al hacer clic en la X
+    span.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+    
+    // Ocultar modal al hacer clic en Cancelar
+    cancelBtn.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+    
+    // Ocultar modal al hacer clic fuera del contenido
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+</script>
+{% endblock %}

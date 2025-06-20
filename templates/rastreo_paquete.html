@@ -1,0 +1,125 @@
+{% extends 'base.html' %}  {# Hereda de la plantilla base #}
+
+{# Define el bloque del título #}
+{% block title %}Rastrear Paquete{% endblock %}
+
+{# Inicia el bloque de contenido principal #}
+{% block content %}
+<div class="container">
+    {# Título principal de la página #}
+    <h1 id="principal">Rastrear Paquete</h1>
+    
+    {# Formulario de búsqueda #}
+    <form method="POST" action="{% url 'rastreo_paquete' %}" class="tracking-form">
+        {% csrf_token %}  {# Token de seguridad CSRF #}
+        <div class="form-group">
+            {# Campo de entrada para el código de rastreo #}
+            <input 
+                type="text" 
+                id="codigo" 
+                name="codigo" 
+                placeholder="Ingrese el número de rastreo" 
+                required>  {# Campo obligatorio #}
+        </div>
+        <div class="form-group">
+            {# Botón de envío del formulario #}
+            <button type="submit" class="btn">Buscar Paquete</button>
+        </div>
+    </form>
+
+    {# Mensaje de error si existe #}
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {# Sección de información del paquete (solo se muestra si existe) #}
+    {% if paquete %}
+        <h2>Información del Paquete</h2>
+        <table class="table">
+            <tbody>
+                {# Muestra los detalles del paquete #}
+                <tr>
+                    <th>Número de Rastreo</th>
+                    <td>{{ paquete.codigo }}</td>
+                </tr>
+                <tr>
+                    <th>Remitente</th>
+                    <td>{{ paquete.remitente }}</td>
+                </tr>
+                <tr>
+                    <th>Receptor</th>
+                    <td>{{ paquete.receptor }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Origen</th>
+                    <td>{{ estado_origen.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Destino</th>
+                    <td>{{ estado_destino.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado Actual</th>
+                    <td>{{ paquete.estado_actual.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado del Paquete</th>
+                    <td>{{ paquete.estado_paquete }}</td>
+                </tr>
+                <tr>
+                    <th>Peso</th>
+                    <td>{{ paquete.peso }} kg</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ paquete.descripcion }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {# Sección de la ruta del paquete #}
+        <h3>Ruta del Paquete</h3>
+        <div class="timeline">
+            {# Itera sobre cada etapa de la ruta #}
+            {% for ruta in rutas %}
+                {# Aplica clases CSS según el estado de la ruta #}
+                <div class="timeline-item {% if ruta.activo %}current{% elif ruta.fecha_actualizacion %}completed{% endif %}">
+                    <div class="timeline-content">
+                        <h4>{{ ruta.frase.frase }}</h4>  {# Descripción de la etapa #}
+                        <p>
+                            {# Detalles de origen y destino #}
+                            De <strong>{{ ruta.estado_origen.nombre }}</strong> a 
+                            <strong>{{ ruta.estado_destino.nombre }}</strong><br>
+                            
+                            {# Muestra fecha de actualización o estado pendiente #}
+                            {% if ruta.fecha_actualizacion %}
+                                <small>Actualizado: {{ ruta.fecha_actualizacion|date:"d/m/Y H:i" }}</small>
+                            {% else %}
+                                <small>Pendiente</small>
+                            {% endif %}
+                        </p>
+                        {# Badge de estado visual #}
+                        {% if ruta.activo %}
+                            <span class="badge badge-warning">En Curso</span>
+                        {% elif ruta.fecha_actualizacion %}
+                            <span class="badge badge-success">Completado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Sección especial para paquetes entregados #}
+        {% if paquete.estado_paquete == "Entregado" %}
+            <div class="alert alert-success">
+                <strong>¡Paquete Entregado!</strong> El paquete ha sido entregado el {{ paquete.fecha_envio|date:"d M Y H:i" }}.
+            </div>
+            {# Formulario para descargar comprobante #}
+            <form method="POST" action="{% url 'descargar_pdf' paquete.codigo %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-download">Descargar Comprobante</button>
+            </form>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}  {# Fin del bloque de contenido #}

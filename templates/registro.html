@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Configuración básica del documento -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paquetería Bienestar - Registro</title>
+  
+  <!-- Fuente de Google para una tipografía moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* === ESTILOS GENERALES === */
+    /* Configuración base de tipografía */
+    html {
+      font-size: 16px;
+    }
+
+    /* Modelo de caja consistente para todos los elementos */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    /* Estilos base del cuerpo de la página */
+    body {
+      margin: 0;
+      min-height: 100vh; /* Altura mínima de toda la pantalla */
+      font-family: 'Inter', sans-serif;
+      /* Fondo degradado con colores corporativos */
+      background: linear-gradient(135deg, #1a1a1a, #5A1631);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #fff;
+      overflow-x: hidden; /* Previene scroll horizontal */
+    }
+    
+    /* === TARJETA DE REGISTRO === */
+    /* Contenedor principal del formulario */
+    .register-card {
+      /* Fondo semi-transparente con efecto de vidrio esmerilado */
+      background: rgba(255, 241, 222, 0.85);
+      backdrop-filter: blur(12px); /* Efecto de desenfoque */
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px; /* Ancho máximo responsivo */
+      padding: 40px 32px;
+      /* Sombra pronunciada para efecto de elevación */
+      box-shadow: 0 24px 48px rgba(92, 0, 17, 0.5);
+      /* Animación de entrada */
+      animation: slideUpFadeIn 0.6s ease forwards;
+    }
+
+    /* Animación de entrada suave */
+    @keyframes slideUpFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === TÍTULO Y ESTRUCTURA DEL FORMULARIO === */
+    h1 {
+      margin: 0 0 24px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      text-align: center;
+      color: #b3001b; /* Color corporativo para acentos */
+    }
+
+    /* Disposición flexible para los campos del formulario */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Espaciado entre elementos */
+    }
+
+    /* Grupo de entrada con posicionamiento relativo para iconos */
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Contenedor de cada campo de entrada */
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Estilos para iconos SVG dentro de los campos */
+    .input-group svg {
+      position: absolute;
+      left: 12px;
+      width: 20px;
+      height: 20px;
+      fill: #8b0000; /* Color para iconos */
+      pointer-events: none; /* Permite clics en el input debajo */
+      transition: fill 0.3s ease; /* Transición suave al enfocar */
+    }
+
+    /* === CAMPOS DE FORMULARIO === */
+    input {
+      width: 100%;
+      padding: 14px 14px 14px 44px; /* Espacio para icono izquierdo */
+      border-radius: 12px;
+      border: 2px solid rgba(179, 0, 27, 0.4);
+      /* Fondo oscuro semi-transparente */
+      background: rgba(40, 0, 10, 0.75);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      /* Transiciones para interacciones suaves */
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Placeholder con transparencia */
+    input::placeholder {
+      color: rgba(255 255 255 / 0.6);
+    }
+
+    /* Efectos al enfocar el campo */
+    input:focus {
+      outline: none;
+      border-color: #b3001b;
+      background: rgba(60, 0, 15, 0.85);
+    }
+
+    /* Cambio de color en icono al enfocar */
+    input:focus + svg {
+      fill: #b3001b;
+    }
+
+    /* Etiquetas flotantes */
+    label {
+      position: absolute;
+      left: 44px; /* Alineado con el icono */
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255 255 255 / 0.65);
+      font-weight: 600;
+      font-size: 0.85rem;
+      pointer-events: none; /* Permite clics en el input */
+      transition: 0.2s ease all; /* Animación de movimiento */
+      user-select: none; /* Previene selección de texto */
+    }
+
+    /* Efecto de etiqueta flotante cuando el campo tiene contenido */
+    input:focus ~ label,
+    input:not(:placeholder-shown) ~ label {
+      top: -8px; /* Mueve hacia arriba */
+      font-size: 0.7rem;
+      color: #b3001b;
+      background: rgba(179, 0, 27, 0.3); /* Fondo sutil */
+      padding: 0 6px;
+      border-radius: 6px;
+    }
+
+    /* === BOTÓN DE REGISTRO === */
+    button[type="submit"] {
+      margin-top: 8px;
+      background: #b3001b; /* Color principal */
+      border: none;
+      padding: 12px 0;
+      border-radius: 14px;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      /* Sombra con color corporativo */
+      box-shadow: 0 8px 15px rgba(179, 0, 27, 0.6);
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
+    }
+
+    /* Efectos de hover y focus para el botón */
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      box-shadow: 0 15px 30px rgba(179, 0, 27, 0.9);
+      transform: scale(1.05); /* Ligero crecimiento */
+      outline: none; /* Elimina contorno por defecto */
+    }
+
+    /* === ENLACE DE LOGIN === */
+    .login-link {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(0, 0, 0, 0.7); /* Color de texto legible sobre fondo claro */
+    }
+
+    .login-link a {
+      color: #b3001b;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    /* Efectos para el enlace de login */
+    .login-link a:hover,
+    .login-link a:focus {
+      color: #fff; /* Cambio a blanco al interactuar */
+      outline: none;
+    }
+
+    /* === AJUSTES RESPONSIVE PARA DISPOSITIVOS PEQUEÑOS === */
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.4rem; /* Tamaño más pequeño */
+      }
+      input, button {
+        font-size: 0.9rem; /* Tipografía más compacta */
+        padding: 10px 12px; /* Padding reducido */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Contenedor principal del formulario -->
+  <main class="register-card" aria-label="Formulario de Registro de Paquetería Bienestar">
+    <h1>Crear cuenta</h1>
+    
+    <!-- Formulario de registro con método POST -->
+    <form method="post" action="{% url 'registro' %}">
+      {% csrf_token %} <!-- Token de seguridad para Django -->
+      
+      <!-- Campo: Nombre completo -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input type="text" id="nombre" name="nombre" placeholder=" " required />
+          <!-- Icono SVG de usuario -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+          <label for="nombre">Nombre completo</label>
+        </div>
+      </div>
+      
+      <!-- Campo: Correo electrónico -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input type="email" id="email" name="email" placeholder=" " required />
+          <!-- Icono SVG de email -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1 .9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <label for="email">Correo Electrónico</label>
+        </div>
+      </div>
+      
+      <!-- Campo: Contraseña -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input type="password" id="password1" name="password1" placeholder=" " required />
+          <!-- Icono SVG de candado -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-7h-1V7c0-2.76-2.24-5-5-5S7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v8c0 1.1 .9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6-3c1.65 0 3 1.35 3 3v3H9v-3c0-1.65 1.35-3 3-3z"/></svg>
+          <label for="password1">Contraseña</label>
+        </div>
+      </div>
+      
+      <!-- Campo: Confirmar contraseña -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input type="password" id="password2" name="password2" placeholder=" " required />
+          <!-- Icono SVG de candado (mismo que contraseña) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-7h-1V7c0-2.76-2.24-5-5-5S7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v8c0 1.1 .9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6-3c1.65 0 3 1.35 3 3v3H9v-3c0-1.65 1.35-3 3-3z"/></svg>
+          <label for="password2">Confirmar Contraseña</label>
+        </div>
+      </div>
+      
+      <!-- Botón de envío del formulario -->
+      <button type="submit">Registrarse</button>
+    </form>
+    
+    <!-- Enlace para usuarios existentes -->
+    <p class="login-link">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+  </main>
+</body>
+</html>

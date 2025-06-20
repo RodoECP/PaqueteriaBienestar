@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comprobante de Entrega - Paquete {{ paquete.codigo }}</title>
+    <style>
+        /* Estilos para el PDF */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8B0000; /* Guinda */
+            color: #FFFFFF;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #FFC0CB; /* Rosa */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #FFFFFF; /* Fondo blanco */
+        }
+        th, td {
+            border: 1px solid #000000; /* Bordes negros */
+            padding: 12px 15px; /* Aumentar padding para mejor legibilidad */
+            text-align: left;
+            color: #000000; /* Texto negro */
+        }
+        th {
+            background-color: #F2F2F2; /* Fondo gris muy claro para encabezados */
+        }
+        tr:nth-child(even) td {
+            background-color: #f9f9f9; /* Filas pares en gris muy claro */
+        }
+        tr:hover td {
+            background-color: #f1f1f1; /* Efecto hover en filas */
+        }
+        p {
+            text-align: center;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comprobante de Entrega</h1>
+    <h2>Paquete {{ paquete.codigo }}</h2>
+
+    <h3>Información del Paquete</h3>
+    <table>
+        <tr>
+            <th>Número de Rastreo</th>
+            <td>{{ paquete.codigo }}</td>
+        </tr>
+        <tr>
+            <th>Remitente</th>
+            <td>{{ paquete.remitente }}</td>
+        </tr>
+        <tr>
+            <th>Dirección de Recolección</th>
+            <td>{{ paquete.direccion_recoleccion }}</td>
+        </tr>
+        <tr>
+            <th>Receptor</th>
+            <td>{{ paquete.receptor }}</td>
+        </tr>
+        <tr>
+            <th>Dirección de Entrega</th>
+            <td>{{ paquete.direccion_entrega }}</td>
+        </tr>
+        <tr>
+            <th>Estado de Origen</th>
+            <td>{{ estado_origen.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Estado de Destino</th>
+            <td>{{ estado_destino.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Peso</th>
+            <td>{{ paquete.peso }} kg</td>
+        </tr>
+        <tr>
+            <th>Descripción</th>
+            <td>{{ paquete.descripcion }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Entrega</th>
+            <td>{{ paquete.fecha_entrega|date:"d de F, Y H:i" }}</td>
+        </tr>
+        <tr>
+            <th>Costo Estimado</th>
+            <td>${{ costo_envio|floatformat:2 }} MXN</td>
+        </tr>
+    </table>
+
+    <h3>Rutas Realizadas</h3>
+    <table>
+        <tr>
+            <th>Orden</th>
+            <th>Frase</th>
+            <th>De</th>
+            <th>A</th>
+            <th>Fecha de Actualización</th>
+        </tr>
+        {% for ruta in rutas %}
+        <tr>
+            <td>{{ ruta.orden }}</td>
+            <td>{{ ruta.frase.frase }}</td>
+            <td>{{ ruta.estado_origen.nombre }}</td>
+            <td>{{ ruta.estado_destino.nombre }}</td>
+            <td>
+                {% if ruta.fecha_actualizacion %}
+                    {{ ruta.fecha_actualizacion|date:"d de F, Y H:i" }}
+                {% else %}
+                    Pendiente
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+
+    <p>Gracias por utilizar nuestros servicios.</p>
+</body>
+</html>

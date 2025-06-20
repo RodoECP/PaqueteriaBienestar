@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% block title %}Solicitar Envío{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 id="principal">Solicitar Envío</h1>
+        <form method="POST" action="{% url 'solicitar_envio' %}" class="form-horizontal">
+            {% csrf_token %}
+
+            <!-- Nombre del Remitente -->
+            <div class="form-group">
+                <label for="nombre_emisor">Nombre del Remitente:</label>
+                <input
+                    type="text"
+                    id="nombre_emisor"
+                    name="remitente"
+                    placeholder="Nombre completo del remitente"
+                    value="{{ form_data.remitente|default_if_none:'' }}"
+                    required>
+                {% if errors.remitente %}
+                    <p class="error-message">{{ errors.remitente }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Dirección de Recolección Descompuesta -->
+            <h2>Dirección de Recolección</h2>
+            <div class="form-group">
+                <label for="colonia_recoleccion">Colonia:</label>
+                <input
+                    type="text"
+                    id="colonia_recoleccion"
+                    name="colonia_recoleccion"
+                    placeholder="Colonia"
+                    value="{{ form_data.colonia_recoleccion|default_if_none:'' }}"
+                    required>
+                {% if errors.colonia_recoleccion %}
+                    <p class="error-message">{{ errors.colonia_recoleccion }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="calle_recoleccion">Calle:</label>
+                <input
+                    type="text"
+                    id="calle_recoleccion"
+                    name="calle_recoleccion"
+                    placeholder="Calle"
+                    value="{{ form_data.calle_recoleccion|default_if_none:'' }}"
+                    required>
+                {% if errors.calle_recoleccion %}
+                    <p class="error-message">{{ errors.calle_recoleccion }}</p>
+                {% endif %}
+            </div>
+
+           <!-- Número exterior - Recolección -->
+<div class="form-group">
+    <label for="numero_recoleccion">Número exterior:</label>
+    <input
+        type="text"
+        id="numero_recoleccion"
+        name="numero_recoleccion"
+        placeholder="Número exterior"
+        value="{{ form_data.numero_recoleccion|default_if_none:'' }}"
+        pattern="\d+"
+        required>
+    {% if errors.numero_recoleccion %}
+        <p class="error-message">{{ errors.numero_recoleccion }}</p>
+    {% endif %}
+</div>
+
+<!-- Código Postal - Recolección -->
+<div class="form-group">
+    <label for="codigo_postal_recoleccion">Código Postal:</label>
+    <input
+        type="text"
+        id="codigo_postal_recoleccion"
+        name="codigo_postal_recoleccion"
+        placeholder="Código Postal"
+        value="{{ form_data.codigo_postal_recoleccion|default_if_none:'' }}"
+        pattern="\d{5}"
+        required>
+    {% if errors.codigo_postal_recoleccion %}
+        <p class="error-message">{{ errors.codigo_postal_recoleccion }}</p>
+    {% endif %}
+</div>
+            <!-- Estado de Origen -->
+            <div class="form-group">
+                <label for="estado_origen">Estado de Origen:</label>
+                <select id="estado_origen" name="estado_origen_id" required>
+                    <option value="" disabled {% if not form_data.estado_origen_id %}selected{% endif %}>Seleccione un estado</option>
+                    {% for estado in estados %}
+                        <option value="{{ estado.id }}" {% if form_data.estado_origen_id == estado.id|stringformat:"s" %}selected{% endif %}>{{ estado.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if errors.estado_origen_id %}
+                    <p class="error-message">{{ errors.estado_origen_id }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Nombre del Receptor -->
+            <div class="form-group">
+                <label for="nombre_receptor">Nombre del Receptor:</label>
+                <input
+                    type="text"
+                    id="nombre_receptor"
+                    name="receptor"
+                    placeholder="Nombre completo del receptor"
+                    value="{{ form_data.receptor|default_if_none:'' }}"
+                    required>
+                {% if errors.receptor %}
+                    <p class="error-message">{{ errors.receptor }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Dirección de Entrega Descompuesta -->
+            <h2>Dirección de Entrega</h2>
+            <div class="form-group">
+                <label for="colonia_entrega">Colonia:</label>
+                <input
+                    type="text"
+                    id="colonia_entrega"
+                    name="colonia_entrega"
+                    placeholder="Colonia"
+                    value="{{ form_data.colonia_entrega|default_if_none:'' }}"
+                    required>
+                {% if errors.colonia_entrega %}
+                    <p class="error-message">{{ errors.colonia_entrega }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="calle_entrega">Calle:</label>
+                <input
+                    type="text"
+                    id="calle_entrega"
+                    name="calle_entrega"
+                    placeholder="Calle"
+                    value="{{ form_data.calle_entrega|default_if_none:'' }}"
+                    required>
+                {% if errors.calle_entrega %}
+                    <p class="error-message">{{ errors.calle_entrega }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="numero_entrega">Número exterior:</label>
+                <input
+                    type="text"
+                    id="numero_entrega"
+                    name="numero_entrega"
+                    placeholder="Número exterior"
+                    value="{{ form_data.numero_entrega|default_if_none:'' }}"
+                    required>
+                {% if errors.numero_entrega %}
+                    <p class="error-message">{{ errors.numero_entrega }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="codigo_postal_entrega">Código Postal:</label>
+                <input
+                    type="text"
+                    id="codigo_postal_entrega"
+                    name="codigo_postal_entrega"
+                    placeholder="Código Postal"
+                    value="{{ form_data.codigo_postal_entrega|default_if_none:'' }}"
+                    required>
+                {% if errors.codigo_postal_entrega %}
+                    <p class="error-message">{{ errors.codigo_postal_entrega }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Estado de Destino -->
+            <div class="form-group">
+                <label for="estado_destino">Estado de Destino:</label>
+                <select id="estado_destino" name="estado_destino_id" required>
+                    <option value="" disabled {% if not form_data.estado_destino_id %}selected{% endif %}>Seleccione un estado</option>
+                    {% for estado in estados %}
+                        <option value="{{ estado.id }}" {% if form_data.estado_destino_id == estado.id|stringformat:"s" %}selected{% endif %}>{{ estado.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if errors.estado_destino_id %}
+                    <p class="error-message">{{ errors.estado_destino_id }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Peso del Paquete -->
+            <div class="form-group">
+                <label for="peso">Peso del Paquete (kg):</label>
+                <input
+                    type="number"
+                    id="peso"
+                    name="peso"
+                    step="0.1"
+                    placeholder="Ingrese el peso en kilogramos"
+                    value="{{ form_data.peso|default_if_none:'' }}"
+                    required>
+                {% if errors.peso %}
+                    <p class="error-message">{{ errors.peso }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Descripción del Paquete -->
+            <div class="form-group">
+                <label for="descripcion">Descripción del Paquete:</label>
+                <textarea
+                    id="descripcion"
+                    name="descripcion"
+                    placeholder="Describa el contenido del paquete"
+                    required>{{ form_data.descripcion|default_if_none:'' }}</textarea>
+                {% if errors.descripcion %}
+                    <p class="error-message">{{ errors.descripcion }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn">Solicitar Recolección</button>
+            </div>
+        </form>
+
+        {% if codigo %}
+            <h2>Detalles del Paquete</h2>
+            <table class="tabla-detalles">
+                <tr>
+                    <th>Número de Rastreo</th>
+                    <td>{{ codigo }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Origen</th>
+                    <td>{{ estado_origen }}</td>
+                </tr>
+                <tr>
+                    <th>Estado de Destino</th>
+                    <td>{{ estado_destino }}</td>
+                </tr>
+                <tr>
+                    <th>Peso</th>
+                    <td>{{ peso }} kg</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre del Receptor</th>
+                    <td>{{ receptor }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección de Entrega</th>
+                    <td>{{ direccion_entrega }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre del Remitente</th>
+                    <td>{{ remitente }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección de Recolección</th>
+                    <td>{{ direccion_recoleccion }}</td>
+                </tr>
+            </table>
+        {% elif error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

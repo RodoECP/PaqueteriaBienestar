@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Acerca de Nosotros{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 id="principal" class="text-center text-guinda mb-4">Acerca de Nosotros</h1>
+    <p class="lead text-center mb-5">
+        <strong>Paquetería del Bienestar</strong> es la paquetería del pueblo bueno y justo. Nuestra misión es ofrecer soluciones de envío accesibles y confiables para todos los rincones de México.
+    </p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="text-guinda">Nuestra Misión</h2>
+            <p>
+                Brindar un servicio de paquetería eficiente y seguro, contribuyendo al bienestar de la comunidad. Nos esforzamos por conectar a las personas y negocios, facilitando el intercambio de bienes y fortaleciendo la economía local.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-guinda">Nuestros Valores</h2>
+            <ul>
+                <li><strong>Compromiso:</strong> Estamos dedicados a satisfacer las necesidades de nuestros clientes.</li>
+                <li><strong>Transparencia:</strong> Operamos con honestidad y claridad en todas nuestras acciones.</li>
+                <li><strong>Innovación:</strong> Buscamos constantemente mejorar nuestros servicios y procesos.</li>
+                <li><strong>Responsabilidad Social:</strong> Contribuimos al desarrollo sostenible de nuestras comunidades.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="my-5">
+        <h2 class="text-center text-guinda">¿Por qué elegirnos?</h2>
+        <p>
+            En Paquetería del Bienestar, entendemos la importancia de cada envío. Nos esforzamos por ofrecer:
+        </p>
+        <ul>
+            <li>Entrega rápida y eficiente.</li>
+            <li>Seguimiento en tiempo real de tus paquetes.</li>
+            <li>Atención al cliente personalizada.</li>
+        </ul>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'solicitar_envio' %}" class="btn btn-guinda btn-lg">Solicita tu Envío Ahora</a>
+    </div>
+</div>
+{% endblock %}

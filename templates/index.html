@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paquetería del Bienestar - Pantalla Principal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <section class="user-greeting">
+    {% if autenticado %}
+      <h1>Bienvenido, {{ usuario_nombre }}</h1>
+    {% else %}
+      <h1>Bienvenido</h1>
+    {% endif %}
+  </section>
+</head>
+
+<body>
+  <nav id="nav-menu" role="navigation" aria-label="Menú principal de navegación">
+    <section>
+      <ul class="footer-links">
+        <li><a href="#" tabindex="-1">Servicios</a></li>
+        <li><a href="{% url 'rastreo_paquete' %}" class="action-card" role="button" aria-label="Rastrear paquete"></li>
+        <li><a href="#" tabindex="-1">Acerca de</a></li>
+        <li><a href="#" tabindex="-1">Contacto</a></li>
+      </ul>
+    </section>
+  </nav>
+
+  <main>
+    <section aria-label="Saludo al usuario y descripción">
+      <p class="subtitle">Envía, rastrea y encuentra puntos de atención para tus paquetes de manera rápida y segura.</p>
+    </section>
+
+    <section class="actions" aria-label="Acciones principales de la aplicación">
+      <section class="actions" aria-label="Acciones principales de la aplicación">
+        <a href="{% url 'solicitar_envio' %}" class="action-card" role="button" aria-label="Enviar paquete">
+          <span class="action-icon" aria-hidden="true">local_shipping</span>
+          {% if autenticado %}
+            <span class="action-label">Enviar Paquete</span>
+          {% else %}
+            <span class="action-label">Inicia sesión para hacer envío</span>
+          {% endif %}
+        </a>
+
+        <a href="{% url 'rastreo_paquete' %}" class="action-card" role="button" aria-label="Rastrear paquete">
+          <span class="action-icon" aria-hidden="true">find_in_page</span>
+          <span class="action-label">Rastrear Paquete</span>
+        </a>
+
+        <a href="{% url 'puntos_atencion' %}" class="action-card" role="button" aria-label="Puntos de atención">
+          <span class="action-icon" aria-hidden="true">location_on</span>
+          <span class="action-label">Puntos de Atención</span>
+        </a>
+      </section>
+
+      <section class="recent-deliveries" aria-label="Últimos envíos realizados">
+        {% if autenticado %}
+        <h2 class="recent-title">Tus envíos recientes</h2>
+        <div class="deliveries-list" tabindex="0">
+          {% for paquete in paquetes %}
+            <article class="delivery-item">
+              <div class="delivery-info">
+                <span class="delivery-package">Descripción: {{ paquete.descripcion }}</span><br>
+                <span class="delivery-status">Estado del envío: {{ paquete.estado_paquete }}</span><br>
+                <span class="delivery-location">Ubicación actual: {{ paquete.estado_actual.nombre }}</span><br>
+                <span class="delivery-code">Código de seguimiento: {{ paquete.codigo }}</span>
+              </div>
+              <time class="delivery-date">{{ paquete.fecha_envio|date:"d M Y H:i" }}</time>
+            </article>
+          {% empty %}
+            <p>No tienes envíos registrados aún.</p>
+          {% endfor %}
+        </div>
+        {% else %}
+          <p class="recent-title">Inicia sesión para ver tus envíos recientes.</p>
+        {% endif %}
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuToggleBtn');
+    const navMenu = document.getElementById('nav-menu');
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        navMenu.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        setTabIndexForLinks(-1);
+      } else {
+        navMenu.classList.add('show');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        setTabIndexForLinks(0);
+      }
+    });
+
+    function setTabIndexForLinks(value) {
+      const links = navMenu.querySelectorAll('a');
+      links.forEach(link => {
+        link.tabIndex = value;
+      });
+    }
+    setTabIndexForLinks(-1);
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && e.target !== menuBtn) {
+        if (navMenu.classList.contains('show')) {
+          navMenu.classList.remove('show');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          setTabIndexForLinks(-1);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+{% endblock %}
